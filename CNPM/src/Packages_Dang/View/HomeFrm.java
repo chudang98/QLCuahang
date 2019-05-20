@@ -106,7 +106,15 @@ public class HomeFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSPActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            sp = new SanphamHomeFrm(this);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(HomeFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_btnSPActionPerformed
 
     private void btnNccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNccActionPerformed

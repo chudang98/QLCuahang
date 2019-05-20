@@ -16,7 +16,6 @@ import java.sql.SQLException;
 public class DAO {
     protected static Connection con;
     
-    
     // CONFIG
     private static int $PORT = 3306;
     private static String $DBName = "CUAHANG";

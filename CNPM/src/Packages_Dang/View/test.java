@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
 public class test {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
- 
-        
+        String test = "A009";
+        System.out.println(test.compareTo("A008"));
     }
     private static String removeAccent(String s) {
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);

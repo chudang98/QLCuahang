@@ -28,9 +28,7 @@ public class NhaCCDAO extends DAO{
     }
     
     private static ResultSet executeSelect(String sql) throws SQLException{
-       
         ResultSet rs = state.executeQuery(sql);
-        
         return rs;
     }
     
@@ -53,6 +51,7 @@ public class NhaCCDAO extends DAO{
         }    
         return list;
     }
+    
     public static void editNCC(String CMND, Nha_Cung_Cap ncc) throws SQLException{
         try{
             String sql = "UPDATE " + $table + " SET cmnd = '" + ncc.getCmnd() + "', ten = '" + ncc.getTen() +
