@@ -5,6 +5,15 @@
  */
 package Packages_Dang.View.Nhacungcap;
 
+import Control.Nha_Cung_Cap;
+import Packages_Dang.Controller.NhaCCDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Duck
@@ -12,10 +21,17 @@ package Packages_Dang.View.Nhacungcap;
 public class TimkiemFrm extends javax.swing.JFrame {
 
     /**
-     * Creates new form TimkiemFrm
+     * Creates new form ThemFrm
      */
-    public TimkiemFrm() {
+    public TimkiemFrm() throws SQLException, ClassNotFoundException {
         initComponents();
+        new NhaCCDAO();
+
+        tblBang.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+                
+        listNCC = NhaCCDAO.getAllNCC();
+        renderTable(listNCC);
+        
     }
 
     /**
@@ -27,17 +43,83 @@ public class TimkiemFrm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblBang = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        txtInfor = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Tìm kiếm thông tin nhà cung cấp");
+
+        tblBang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CMND", "Họ tên", "Địa chỉ", "Số điện thoại", "Email"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblBang);
+
+        jLabel2.setText("Nhập thông tin nhà cung cấp ");
+
+        jButton1.setText("Tìm kiếm");
+
+        jButton2.setText("Quay lại");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(224, 224, 224)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtInfor, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)))
+                        .addGap(0, 48, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(289, 289, 289)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtInfor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -73,11 +155,49 @@ public class TimkiemFrm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TimkiemFrm().setVisible(true);
+                try {
+                    new TimkiemFrm().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TimkiemFrm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TimkiemFrm.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
+    
+    
+    private void renderTable(ArrayList<Nha_Cung_Cap> list){
+        DefaultTableModel tb = (DefaultTableModel) tblBang.getModel();
+        for(int i = 0; i < list.size(); i++){
+            tb.addRow(NhaCCDAO.convertString(list.get(i)));
+        }
+        this.dispose();        
+    }
+    
+    private void searchNCC(){
+        String infor = txtInfor.getText();
+        ArrayList<Nha_Cung_Cap> rs = new ArrayList<Nha_Cung_Cap>();
+        
+        for(int i = 0; i < listNCC.size(); i++){
+            
+        }
+    }
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblBang;
+    private javax.swing.JTextField txtInfor;
     // End of variables declaration//GEN-END:variables
+
+    private ArrayList<Nha_Cung_Cap> listNCC;
+    private NCCHomeFrm host;
+
 }

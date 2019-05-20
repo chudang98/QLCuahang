@@ -33,7 +33,11 @@ public class NhaCCDAO extends DAO{
         return rs;
     }
     
-    
+    public static String[] convertString(Nha_Cung_Cap v){
+        String t[] = {v.getCmnd(), v.getTen(), v.getDia_chi(), v.getSdt(), v.getEmail()};
+        return t;
+    }
+        
     public static ArrayList<Nha_Cung_Cap> getAllNCC() throws SQLException{
         ArrayList<Nha_Cung_Cap> list = new ArrayList<Nha_Cung_Cap>();
         String sql = "SELECT * FROM " + $table;
@@ -49,6 +53,10 @@ public class NhaCCDAO extends DAO{
         return list;
     }
     
+    
+    public static void editNCC(){
+        
+    }
     
     
 }
