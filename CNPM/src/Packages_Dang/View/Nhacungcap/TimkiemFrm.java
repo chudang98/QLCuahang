@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,7 +26,7 @@ public class TimkiemFrm extends javax.swing.JFrame {
     /**
      * Creates new form ThemFrm
      */
-    public TimkiemFrm(NCCHomeFrm host) throws SQLException, ClassNotFoundException {
+    public TimkiemFrm(JFrame host) throws SQLException, ClassNotFoundException {
         initComponents();
 //        new NhaCCDAO();
         this.host = host;
@@ -162,6 +163,7 @@ public class TimkiemFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         host.setVisible(true);
+        host.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -277,6 +279,6 @@ public class TimkiemFrm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ArrayList<Nha_Cung_Cap> listNCC;
-    private NCCHomeFrm host;
+    private JFrame host;
 
 }

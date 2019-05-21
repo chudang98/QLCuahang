@@ -46,10 +46,10 @@ public class HoadonDAO extends DAO{
     public static ArrayList<String[]> getMathangHDN(String HDN) throws SQLException{
         String sql = "SELECT san_pham.ma_san_pham, mat_hang_nhap.ma_mat_hang,san_pham.ten_san_pham, san_pham.loai_san_pham, san_pham.kick_co, san_pham.mau_sac, san_pham.gia_nhap, san_pham.gia_ban "
                 + "FROM san_pham, hoa_don_nhap_hang, mat_hang_nhap "
-                + "WHERE san_pham.ma_san_pham = mat_hang_nhap.ma_san_pham AND mat_hang_nhap.hd_nhap = hoa_don_nhap_hang.ma_hd_nhap AND hoa_don_nhap_hang.ma_hd_nhap = " + HDN ;
+                + "WHERE san_pham.ma_san_pham = mat_hang_nhap.ma_san_pham AND mat_hang_nhap.hd_nhap = hoa_don_nhap_hang.ma_hd_nhap AND hoa_don_nhap_hang.ma_hd_nhap = '" + HDN + "'";
+
         ArrayList<String[]> list = new ArrayList<String[]>();
         ResultSet rs = executeSelect(sql);
-        
         while(rs.next()){
 //            String ma = rs.getString("ma_san_pham"), maMH = rs.getString("ma_mat_hang"), ten = rs.getString("ten_mat_hang");
             String ma = rs.getString(1), maMH = rs.getString(2), ten = rs.getString(3), loai = rs.getString(4), size = rs.getString(5),
@@ -60,5 +60,14 @@ public class HoadonDAO extends DAO{
             list.add(t);
         }
         return list;
+    }
+    public static String[] getInforHDN(String maHD) throws SQLException{
+        String sql = "SELECT nhan_vien.ho_ten, nha_cung_cap.ten, hoa_don_nhap_hang.thoi_gian, hoa_don_nhap_hang.ghi_chu " +
+                    "FROM nhan_vien, hoa_don_nhap_hang, nha_cung_cap " +
+                    "WHERE nhan_vien.cmnd = hoa_don_nhap_hang.cmnd_nv_kho AND hoa_don_nhap_hang.ncc_cmnd = nha_cung_cap.cmnd AND hoa_don_nhap_hang.ma_hd_nhap = '" + maHD + "'";
+        ResultSet rs = executeSelect(sql);
+        rs.next();
+        String[] kq = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)};
+        return kq;
     }
 }

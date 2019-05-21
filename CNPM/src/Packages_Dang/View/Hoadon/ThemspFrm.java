@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Packages_Dang.View.Sanpham;
+package Packages_Dang.View.Hoadon;
 
 import Control.Cua_Hang;
 import Control.San_Pham;
@@ -23,7 +23,7 @@ public class ThemspFrm extends javax.swing.JFrame {
     /**
      * Creates new form ThemspFrm
      */
-    public ThemspFrm(JFrame host) throws ClassNotFoundException, SQLException {
+    public ThemspFrm(LaphoadonFrm host) throws ClassNotFoundException, SQLException {
         initComponents();
         
         this.host = host;
@@ -240,13 +240,9 @@ public class ThemspFrm extends javax.swing.JFrame {
         String loai = cbxLoai.getItemAt(cbxLoai.getSelectedIndex());
         San_Pham sp = new  San_Pham(masp, ten, loai, Integer.valueOf(gia), 0, mau, size, t);
         
-        try {
-            SanphamDAO.addSP(sp);
-            JOptionPane.showMessageDialog(this, "Thêm sản phẩm mới thành công !");
-            Back();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Thông tin không hợp lệ, vui lòng kiểm tra lại !", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        host.setSPmoi(sp);
+        JOptionPane.showMessageDialog(this, "Thêm sản phẩm mới thành công !");
+        Back();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -256,6 +252,7 @@ public class ThemspFrm extends javax.swing.JFrame {
 
     private void Back(){
         host.setVisible(true);
+        host.setEnabled(true);
         this.dispose();
     }
 //    /**
@@ -336,5 +333,5 @@ public class ThemspFrm extends javax.swing.JFrame {
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 
-    private JFrame host;
+    private LaphoadonFrm host;
 }

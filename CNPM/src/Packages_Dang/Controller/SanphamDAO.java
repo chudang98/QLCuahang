@@ -5,6 +5,7 @@
  */
 package Packages_Dang.Controller;
 
+import Control.Cua_Hang;
 import Control.San_Pham;
 import Control_DAO.DAO;
 import java.sql.PreparedStatement;
@@ -20,10 +21,12 @@ import java.util.ArrayList;
 public class SanphamDAO extends DAO{
     
     private static Statement state;
+    private static Cua_Hang shop;
     
     public SanphamDAO() throws ClassNotFoundException, SQLException{
         super();
         state = con.createStatement();
+        shop = new Cua_Hang("Team_4 Store", "Ptit - Hà Nội", "19008199", "Chuyên bán quần áo giày");
     }
     
     private static ResultSet executeSelect(String sql) throws SQLException{
@@ -47,7 +50,6 @@ public class SanphamDAO extends DAO{
                     + " FROM san_pham, mat_hang_nhap WHERE san_pham.ma_san_pham = mat_hang_nhap.ma_san_pham" 
                     + " GROUP BY mat_hang_nhap.ma_san_pham ) as T"
                     + " WHERE san_pham.ma_san_pham = T.ma_san_pham ";
-        System.out.println(sql);
         ResultSet rs = executeSelect(sql);
         while(rs.next()){
             String ma_sp = rs.getString("ma_san_pham"), ten = rs.getString("ten_san_pham"), loai = rs.getString("loai_san_pham"),
@@ -103,6 +105,22 @@ public class SanphamDAO extends DAO{
                 return t;
             }
         }
+    }
+    
+    public static San_Pham getSp(String masp) throws SQLException{
+        String sql = "SELECT * FROM San_Pham WHERE ma_san_pham = '" + masp + "'";
+        System.out.println(sql);
+        ResultSet rs = executeSelect(sql);
+        rs.next();
+        
+        
+        San_Pham sp = new San_Pham(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(6), rs.getInt(7), rs.getString(4), rs.getString(5), shop);
+        return sp;
+    }
+    
+    public static String sinhMasp(String masp){
+        return null;
+        
     }
     
     public static void addSP(San_Pham t) throws SQLException{

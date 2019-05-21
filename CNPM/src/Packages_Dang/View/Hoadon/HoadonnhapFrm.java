@@ -5,6 +5,11 @@
  */
 package Packages_Dang.View.Hoadon;
 
+import Packages_Dang.Controller.HoadonDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Duck
@@ -14,9 +19,17 @@ public class HoadonnhapFrm extends javax.swing.JFrame {
     /**
      * Creates new form HoadonnhapFrm
      */
-    public HoadonnhapFrm(TimkiemFrm host, String maHD) {
+    public HoadonnhapFrm(TimkiemhdFrm host, String maHD) throws SQLException {
         initComponents();
         this.host = host;
+        gia = 0;
+        renderTable(maHD);
+        String[] infor = HoadonDAO.getInforHDN(maHD);
+        txtTen.setText(infor[0]);
+        txtNCC.setText(infor[1]);
+        txtDate.setText(infor[2]);
+        txtNote.setText(infor[3]);
+        txtGia.setText(Integer.toString(gia));
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -33,16 +46,19 @@ public class HoadonnhapFrm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTen = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtNCC = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblBang = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtDate = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtGia = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtNote = new javax.swing.JTextPane();
 
         jLabel4.setText("jLabel4");
 
@@ -53,9 +69,13 @@ public class HoadonnhapFrm extends javax.swing.JFrame {
 
         jLabel2.setText("Tên nhân viên kho thanh toán");
 
+        txtTen.setEditable(false);
+
         jLabel3.setText("Tên nhà cung cấp ");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        txtNCC.setEditable(false);
+
+        tblBang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -71,7 +91,7 @@ public class HoadonnhapFrm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblBang);
 
         jButton1.setText("Quay lại");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -82,16 +102,24 @@ public class HoadonnhapFrm extends javax.swing.JFrame {
 
         jLabel5.setText("Thời gian nhập hàng");
 
+        txtDate.setEditable(false);
+
         jLabel6.setText("Tổng giá hóa đơn");
+
+        txtGia.setEditable(false);
+
+        jLabel7.setText("Ghi chú của hóa đơn");
+
+        txtNote.setEditable(false);
+        jScrollPane2.setViewportView(txtNote);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(258, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(149, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -104,13 +132,21 @@ public class HoadonnhapFrm extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtTen)
+                            .addComponent(txtNCC)
+                            .addComponent(txtDate)
+                            .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2)))
                 .addGap(237, 237, 237))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(444, 444, 444)
+                .addGap(443, 443, 443)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -122,24 +158,28 @@ public class HoadonnhapFrm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                    .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(jButton1)
-                .addGap(37, 37, 37))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,6 +193,16 @@ public class HoadonnhapFrm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    private void renderTable(String maHD) throws SQLException{
+        ArrayList<String[]> list = HoadonDAO.getMathangHDN(maHD);
+        DefaultTableModel tb = (DefaultTableModel) tblBang.getModel();
+        for(int i = 0; i < list.size(); i++){
+            gia += Integer.valueOf(list.get(i)[6]);
+            tb.addRow(list.get(i));
+            
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -196,13 +246,17 @@ public class HoadonnhapFrm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblBang;
+    private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtGia;
+    private javax.swing.JTextField txtNCC;
+    private javax.swing.JTextPane txtNote;
+    private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 
-    private TimkiemFrm host;
+    private TimkiemhdFrm host;
+    private int gia;
 }

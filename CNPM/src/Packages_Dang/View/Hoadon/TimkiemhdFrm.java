@@ -12,23 +12,28 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Duck
  */
-public class TimkiemFrm extends javax.swing.JFrame {
+public class TimkiemhdFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form TimkiemFrm
      */
-    public TimkiemFrm() throws ClassNotFoundException, SQLException {
+    public TimkiemhdFrm(JFrame host) throws ClassNotFoundException, SQLException {
         new HoadonDAO();
         initComponents();
+        
+        this.host = host;
+        
         listHD = HoadonDAO.getHoadon();
         setLocationRelativeTo(null);
         renderTbl(listHD);
+        this.setVisible(true);
     }
 
     /**
@@ -82,6 +87,11 @@ public class TimkiemFrm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblBang);
 
         jButton2.setText("Quay lại");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Chi tiết");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -140,8 +150,11 @@ public class TimkiemFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
         int x = tblBang.getSelectedRow();
         String maHD = listHD.get(x)[0];
-        System.out.println(maHD);
-        HoadonnhapFrm hd = new HoadonnhapFrm(this, maHD);        
+        try {        
+            HoadonnhapFrm hd = new HoadonnhapFrm(this, maHD);
+        } catch (SQLException ex) {
+            Logger.getLogger(TimkiemhdFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setEnabled(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -149,6 +162,13 @@ public class TimkiemFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
         search();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        host.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void renderTbl(ArrayList<String[]> list){
         DefaultTableModel tb = (DefaultTableModel) tblBang.getModel();
@@ -179,43 +199,43 @@ public class TimkiemFrm extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TimkiemFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TimkiemFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TimkiemFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TimkiemFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new TimkiemFrm().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(TimkiemFrm.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(TimkiemFrm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(TimkiemFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(TimkiemFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(TimkiemFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(TimkiemFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    new TimkiemFrm().setVisible(true);
+//                } catch (ClassNotFoundException ex) {
+//                    Logger.getLogger(TimkiemFrm.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(TimkiemFrm.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
+//    }
     private static String removeAccent(String s) {
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
@@ -234,4 +254,5 @@ public class TimkiemFrm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ArrayList<String[]> listHD;
+    private JFrame host;
 }

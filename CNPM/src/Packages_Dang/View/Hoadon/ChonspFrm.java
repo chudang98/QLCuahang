@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Packages_Dang.View.Sanpham;
+package Packages_Dang.View.Hoadon;
 
+import Packages_Dang.View.Sanpham.*;
 import Packages_Dang.Controller.SanphamDAO;
 import java.sql.SQLException;
 import java.text.Normalizer;
@@ -12,18 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Duck
  */
-public class TimkiemFrm extends javax.swing.JFrame {
+public class ChonspFrm extends javax.swing.JFrame {
 
     /**
      * Creates new form TimkiemFrm
      */
-    public TimkiemFrm(SanphamHomeFrm host) throws SQLException, ClassNotFoundException {
+    public ChonspFrm(LaphoadonFrm host) throws SQLException {
         initComponents();
         this.host = host;
         setVisible(true);
@@ -48,6 +50,7 @@ public class TimkiemFrm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBang = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,7 +74,7 @@ public class TimkiemFrm extends javax.swing.JFrame {
 
         tblBang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã  sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Giá nhập", "Giá bán", "Màu sắc", "Kích cỡ", "Cửa hàng", "Số lượng đã nhập"
@@ -94,6 +97,13 @@ public class TimkiemFrm extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Chọn sản phẩm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,8 +123,10 @@ public class TimkiemFrm extends javax.swing.JFrame {
                         .addGap(238, 238, 238))))
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(445, 445, 445)
+                .addGap(291, 291, 291)
                 .addComponent(jButton1)
+                .addGap(112, 112, 112)
+                .addComponent(jButton2)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -130,7 +142,9 @@ public class TimkiemFrm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -148,10 +162,23 @@ public class TimkiemFrm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        host.setVisible(true);
+        host.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int x = tblBang.getSelectedRow();
+        try{
+            String maSP = (String) tblBang.getModel().getValueAt(x, 0);
+
+            host.setEnabled(true);
+            host.chonSP(maSP);
+            this.dispose();
+        }catch(Exception e){
+            return;
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     
@@ -228,6 +255,7 @@ public class TimkiemFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTim;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -236,5 +264,5 @@ public class TimkiemFrm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private ArrayList<String[]> listSP;
     
-    private SanphamHomeFrm host;
+    private LaphoadonFrm host;
 }

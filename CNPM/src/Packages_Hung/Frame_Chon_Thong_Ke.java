@@ -11,9 +11,7 @@ package Packages_Hung;
  */
 public class Frame_Chon_Thong_Ke extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Frame_Chon_Thong_Ke
-     */
+ 
     Frame_NV_Quan_Ly quan_Ly;
     Frame_Thong_Ke_Thoi_Gian thong_Ke_Thoi_Gian;
     public Frame_Chon_Thong_Ke(Frame_NV_Quan_Ly quan_Ly) {

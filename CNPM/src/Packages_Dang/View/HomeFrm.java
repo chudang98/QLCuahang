@@ -137,6 +137,8 @@ public class HomeFrm extends javax.swing.JFrame {
 
     private void btnHDNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHDNActionPerformed
         // TODO add your handling code here:
+        HoadonHomeFrm QLhd = new HoadonHomeFrm(this);
+        this.setVisible(false);
     }//GEN-LAST:event_btnHDNActionPerformed
 
     /**
