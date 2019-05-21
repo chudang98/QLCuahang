@@ -34,8 +34,7 @@ public class TimkiemFrm extends javax.swing.JFrame {
         tblBang.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
                 
         listNCC = NhaCCDAO.getAllNCC();
-        renderTable(listNCC);
-        
+        renderTable(listNCC);   
         
         this.setVisible(true);
         

@@ -62,6 +62,11 @@ public class HomeFrm extends javax.swing.JFrame {
         });
 
         btnHDN.setText("Quản lý thông tin hóa đơn nhập kho");
+        btnHDN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHDNActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Đăng xuất");
 
@@ -129,6 +134,10 @@ public class HomeFrm extends javax.swing.JFrame {
         }
         this.setVisible(false);
     }//GEN-LAST:event_btnNccActionPerformed
+
+    private void btnHDNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHDNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHDNActionPerformed
 
     /**
      * @param args the command line arguments

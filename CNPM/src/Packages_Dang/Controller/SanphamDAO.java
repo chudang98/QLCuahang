@@ -5,7 +5,9 @@
  */
 package Packages_Dang.Controller;
 
+import Control.San_Pham;
 import Control_DAO.DAO;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,15 +34,20 @@ public class SanphamDAO extends DAO{
     public static ArrayList<String[]> lietkeSP() throws SQLException{
         ArrayList<String[]> list = new ArrayList<String[]>();
         
-        String sql = "SELECT san_pham.ma_san_pham, san_pham.ten_san_pham, san_pham.loai_san_pham, san_pham.kick_co, san_pham.mau_sac, san_pham.ten_cua_hang, san_pham.gia_nhap, san_pham.gia_ban, (soluong_nhap.so_luong_nhap - soluong_ban.so_luong_ban) as conlai "
-                + "FROM san_pham, "
-                +       "(SELECT mat_hang_ban.ma_san_pham, COUNT(ma_san_pham) as so_luong_ban FROM mat_hang_ban GROUP BY mat_hang_ban.ma_san_pham ) as soluong_ban, "
-                +       "(SELECT mat_hang_nhap.ma_san_pham, COUNT(ma_san_pham) as so_luong_nhap FROM mat_hang_nhap GROUP BY mat_hang_nhap.ma_san_pham) as soluong_nhap "
-                + "WHERE san_pham.ma_san_pham = soluong_ban.ma_san_pham "
-                + "     AND san_pham.ma_san_pham = soluong_nhap.ma_san_pham "
-                + "     AND soluong_nhap.ma_san_pham = soluong_ban.ma_san_pham";
-        
-        
+//        String sql = "SELECT san_pham.ma_san_pham, san_pham.ten_san_pham, san_pham.loai_san_pham, san_pham.kick_co, san_pham.mau_sac, san_pham.ten_cua_hang, san_pham.gia_nhap, san_pham.gia_ban, (soluong_nhap.so_luong_nhap - soluong_ban.so_luong_ban) as conlai "
+//                + "FROM san_pham, "
+//                +       "(SELECT mat_hang_ban.ma_san_pham, COUNT(ma_san_pham) as so_luong_ban FROM mat_hang_ban GROUP BY mat_hang_ban.ma_san_pham ) as soluong_ban, "
+//                +       "(SELECT mat_hang_nhap.ma_san_pham, COUNT(ma_san_pham) as so_luong_nhap FROM mat_hang_nhap GROUP BY mat_hang_nhap.ma_san_pham) as soluong_nhap "
+//                + "WHERE san_pham.ma_san_pham = soluong_ban.ma_san_pham "
+//                + "     AND san_pham.ma_san_pham = soluong_nhap.ma_san_pham "
+//                + "     AND soluong_nhap.ma_san_pham = soluong_ban.ma_san_pham";
+//        
+        String sql = "SELECT  san_pham.ma_san_pham, san_pham.ten_san_pham, san_pham.loai_san_pham, san_pham.kick_co, san_pham.mau_sac, san_pham.ten_cua_hang, san_pham.gia_nhap, san_pham.gia_ban, T.soluong as conlai"
+                    + " FROM san_pham, (SELECT san_pham.ma_san_pham, COUNT(san_pham.ma_san_pham) as soluong"
+                    + " FROM san_pham, mat_hang_nhap WHERE san_pham.ma_san_pham = mat_hang_nhap.ma_san_pham" 
+                    + " GROUP BY mat_hang_nhap.ma_san_pham ) as T"
+                    + " WHERE san_pham.ma_san_pham = T.ma_san_pham ";
+        System.out.println(sql);
         ResultSet rs = executeSelect(sql);
         while(rs.next()){
             String ma_sp = rs.getString("ma_san_pham"), ten = rs.getString("ten_san_pham"), loai = rs.getString("loai_san_pham"),
@@ -96,5 +103,20 @@ public class SanphamDAO extends DAO{
                 return t;
             }
         }
+    }
+    
+    public static void addSP(San_Pham t) throws SQLException{
+        String sql = "INSERT INTO San_Pham(ma_san_pham, ten_San_pham, loai_san_pham, kick_co, mau_sac, gia_nhap, gia_ban, ten_cua_hang)"
+                + " VALUE (?,?,?,?,?,?,?,?)";
+        PreparedStatement prestate = con.prepareStatement(sql);
+        prestate.setString(1, t.getMa_san_pham());
+        prestate.setString(2, t.getTen_san_pham());
+        prestate.setString(3, t.getLoai_san_pham());
+        prestate.setString(4, t.getKich_co());
+        prestate.setString(5, t.getMau_sac());
+        prestate.setInt(6, t.getGia_nhap());
+        prestate.setInt(7, t.getGia_ban());
+        prestate.setString(8, t.getTen_cua_hang().getTen_cua_hang());
+        prestate.executeUpdate();
     }
 }

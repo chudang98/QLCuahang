@@ -5,10 +5,14 @@
  */
 package Packages_Dang.View.Sanpham;
 
+import Control.Cua_Hang;
+import Control.San_Pham;
 import Packages_Dang.Controller.SanphamDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,12 +23,14 @@ public class ThemspFrm extends javax.swing.JFrame {
     /**
      * Creates new form ThemspFrm
      */
-    public ThemspFrm() throws ClassNotFoundException, SQLException {
+    public ThemspFrm(JFrame host) throws ClassNotFoundException, SQLException {
         initComponents();
-        new SanphamDAO();
+        
+        this.host = host;
         txtMa.setText(SanphamDAO.nextID("Áo"));
         setLocationRelativeTo(null);
         txtMa.setEditable(false);
+        this.setVisible(true);
         
     }
 
@@ -74,8 +80,18 @@ public class ThemspFrm extends javax.swing.JFrame {
         jLabel8.setText("Giá nhập");
 
         btnAdd.setText("Thêm sản phẩm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("Quay lại");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Cửa hàng");
 
@@ -102,16 +118,16 @@ public class ThemspFrm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel7)
                                     .addComponent(jLabel4)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
                                 .addGap(35, 35, 35)))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,11 +172,12 @@ public class ThemspFrm extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(41, 41, 41)
+                        .addGap(57, 57, 57)
                         .addComponent(jLabel8))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtMau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtMau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
                         .addGap(29, 29, 29)
                         .addComponent(txtGianhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -208,47 +225,96 @@ public class ThemspFrm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbxLoaiActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ThemspFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ThemspFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ThemspFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ThemspFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        if(checkInfor() == -1){
+            JOptionPane.showMessageDialog(this, "Không được để thông tin được trống !", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        //</editor-fold>
+        if(checkInfor() == -2){
+            JOptionPane.showMessageDialog(this, "Thông tin vượt quá giới hạn hoặc không đúng định dạng, vui lòng kiểm tra lại !", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String ten = txtTen.getText(), masp = txtMa.getText(), size = txtSize.getText(), mau = txtMau.getText(), gia = txtGianhap.getText();
+        Cua_Hang t = new Cua_Hang("Team_4 Store", "Ptit - Hà Nội", "19008199", "Chuyên bán quần áo giày");
+        String loai = cbxLoai.getItemAt(cbxLoai.getSelectedIndex());
+        San_Pham sp = new  San_Pham(masp, ten, loai, Integer.valueOf(gia), 0, mau, size, t);
+        
+        try {
+            SanphamDAO.addSP(sp);
+            JOptionPane.showMessageDialog(this, "Thêm sản phẩm mới thành công !");
+            Back();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Thông tin không hợp lệ, vui lòng kiểm tra lại !", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new ThemspFrm().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(ThemspFrm.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ThemspFrm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        Back();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void Back(){
+        host.setVisible(true);
+        this.dispose();
     }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(ThemspFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(ThemspFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(ThemspFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(ThemspFrm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    new ThemspFrm().setVisible(true);
+//                } catch (ClassNotFoundException ex) {
+//                    Logger.getLogger(ThemspFrm.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(ThemspFrm.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
+//    }
 
+    private int checkInfor(){
+        String ten = txtTen.getText(), masp = txtMa.getText(), size = txtSize.getText(), mau = txtMau.getText(), gia = txtGianhap.getText();
+        
+        if(ten.compareTo("") == 0 || size.compareTo("") == 0 || mau.compareTo("") == 0 || gia.compareTo("") == 0)
+            return -1;
+        if(ten.length() > 50|| size.length() > 20|| mau.length() > 20|| gia.length() > 11)
+            return -2;
+        try{
+            int x = Integer.valueOf(gia);
+        }catch(Exception e){
+            return -2;
+        }
+        
+        return 1;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
@@ -269,4 +335,6 @@ public class ThemspFrm extends javax.swing.JFrame {
     private javax.swing.JTextField txtSize;
     private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
+
+    private JFrame host;
 }
