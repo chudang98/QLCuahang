@@ -43,4 +43,22 @@ public class HoadonDAO extends DAO{
         }
         return list;
     }
+    public static ArrayList<String[]> getMathangHDN(String HDN) throws SQLException{
+        String sql = "SELECT san_pham.ma_san_pham, mat_hang_nhap.ma_mat_hang,san_pham.ten_san_pham, san_pham.loai_san_pham, san_pham.kick_co, san_pham.mau_sac, san_pham.gia_nhap, san_pham.gia_ban "
+                + "FROM san_pham, hoa_don_nhap_hang, mat_hang_nhap "
+                + "WHERE san_pham.ma_san_pham = mat_hang_nhap.ma_san_pham AND mat_hang_nhap.hd_nhap = hoa_don_nhap_hang.ma_hd_nhap AND hoa_don_nhap_hang.ma_hd_nhap = " + HDN ;
+        ArrayList<String[]> list = new ArrayList<String[]>();
+        ResultSet rs = executeSelect(sql);
+        
+        while(rs.next()){
+//            String ma = rs.getString("ma_san_pham"), maMH = rs.getString("ma_mat_hang"), ten = rs.getString("ten_mat_hang");
+            String ma = rs.getString(1), maMH = rs.getString(2), ten = rs.getString(3), loai = rs.getString(4), size = rs.getString(5),
+                    mau = rs.getString(6);
+            int gianhap = rs.getInt(7), giaban = rs.getInt(8);
+            
+            String[] t = {ma, maMH, ten, loai, size, mau, Integer.toString(gianhap), Integer.toString(giaban)};
+            list.add(t);
+        }
+        return list;
+    }
 }

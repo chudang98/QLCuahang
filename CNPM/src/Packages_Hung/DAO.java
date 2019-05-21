@@ -7,25 +7,29 @@ package Packages_Hung;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
  * @author HuyKa
  */
 public class DAO {
-    static Connection con;
-    public DAO(){
-        if(con==null) {
-            String dbClass = "com.mysql.jdbc.Driver";
-            String dbUrl = "jdbc:mysql://localhost:3306/CuaHang";
-           try{
-               Class.forName(dbClass);
-               con = DriverManager.getConnection(dbUrl,"root","vanhuy1998");
-               System.out.println("Access to DAO");
-           }catch(Exception e){
-               System.out.println("DAO Error");
-               e.printStackTrace();
-           } 
-        }
+    static Connection con;    
+    // CONFIG
+    private static int $PORT = 3306;
+    private static String $DBName = "CUAHANG";
+    private static String $host = "localhost";
+    private static String $user = "root";
+    private static String $pass = "";
+   
+    public DAO() throws ClassNotFoundException, SQLException{
+        if(con != null)
+            return;
+        
+        Class.forName("com.mysql.jdbc.Driver");
+        String url = "jdbc:mysql://" + $host + ":" + $PORT  + "/" + $DBName + "?useUnicode=true&characterEncoding=utf-8";
+        con = DriverManager.getConnection(url, $user, $pass);
+        con.setAutoCommit(true);   
+
     }
 }

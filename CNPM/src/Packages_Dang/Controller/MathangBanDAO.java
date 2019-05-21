@@ -6,13 +6,14 @@
 package Packages_Dang.Controller;
 
 import Packages_Hung.DAO;
+import java.sql.SQLException;
 
 /**
  *
  * @author Duck
  */
 public class MathangBanDAO extends DAO{
-    public MathangBanDAO(){
+    public MathangBanDAO() throws ClassNotFoundException, SQLException{
         super();
     }
     

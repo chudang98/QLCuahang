@@ -57,6 +57,11 @@ public class TimkiemFrm extends javax.swing.JFrame {
         jLabel2.setText("Nhập thông tin tìm kiếm");
 
         jButton1.setText("Tìm kiếm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         tblBang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,6 +84,11 @@ public class TimkiemFrm extends javax.swing.JFrame {
         jButton2.setText("Quay lại");
 
         jButton3.setText("Chi tiết");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,6 +136,20 @@ public class TimkiemFrm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        int x = tblBang.getSelectedRow();
+        String maHD = listHD.get(x)[0];
+        System.out.println(maHD);
+        HoadonnhapFrm hd = new HoadonnhapFrm(this, maHD);        
+        this.setEnabled(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        search();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void renderTbl(ArrayList<String[]> list){
         DefaultTableModel tb = (DefaultTableModel) tblBang.getModel();
         tb.setRowCount(0);
@@ -140,6 +164,16 @@ public class TimkiemFrm extends javax.swing.JFrame {
         infor = infor.toLowerCase();
         infor =  removeAccent(infor);
         ArrayList<String[]> rs = new ArrayList<String[]>();
+        for(int i = 0; i < listHD.size(); i++){
+            String[] t = listHD.get(i);
+            for(int j = 0; j < t.length; j++){
+                if(removeAccent(t[j]).toLowerCase().contains(infor)){
+                    rs.add(t);
+                    break;
+                }
+            }
+        }
+        renderTbl(rs);
     }
     
     /**

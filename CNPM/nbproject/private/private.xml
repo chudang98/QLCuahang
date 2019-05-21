@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Packages_Dang/View/Hoadon/TimkiemFrm.java</file>
-            <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Packages_Dang/View/Nhacungcap/TimkiemFrm.java</file>
-            <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Packages_Dang/View/Hoadon/HoadonHomeFrm.java</file>
+            <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Control_DAO/DAO.java</file>
+            <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Packages_Hung/DAO.java</file>
             <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Packages_Dang/View/HomeFrm.java</file>
-            <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Packages_Dang/Controller/SanphamDAO.java</file>
-            <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Packages_Dang/Controller/HoadonDAO.java</file>
-            <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Packages_Dang/Controller/NhaCCDAO.java</file>
+            <file>file:/C:/Users/Duck/Desktop/CNPM-code/QLCuahang/CNPM/src/Packages_Dang/View/Sanpham/TimkiemFrm.java</file>
         </group>
     </open-files>
 </project-private>

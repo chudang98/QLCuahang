@@ -74,7 +74,7 @@ public class TimkiemFrm extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã  sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Giá nhập", "Giá bán", "Màu sắc", "Kích cỡ", "Cửa hàng", "Số lượng"
+                "Mã  sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Giá nhập", "Giá bán", "Màu sắc", "Kích cỡ", "Cửa hàng", "Số lượng đã nhập"
             }
         ) {
             boolean[] canEdit = new boolean [] {
