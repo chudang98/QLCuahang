@@ -5,11 +5,10 @@
  */
 package Packages_Dang.View;
 
-import Control.Nha_Cung_Cap;
-import Packages_Dang.Controller.NhaCCDAO;
 import java.sql.SQLException;
 import java.text.Normalizer;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 /**
@@ -19,8 +18,15 @@ import java.util.regex.Pattern;
 public class test {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-        String test = "A009";
-        System.out.println(test.compareTo("A008"));
+//        String test = "HDN009";
+//        System.out.println(Integer.valueOf(test.substring(3)));
+//        System.out.println(test.substring(0, 3));
+
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	LocalDate localDate = LocalDate.now();
+        String kq = dtf.format(localDate);
+	System.out.println(dtf.format(localDate));
     }
     private static String removeAccent(String s) {
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);

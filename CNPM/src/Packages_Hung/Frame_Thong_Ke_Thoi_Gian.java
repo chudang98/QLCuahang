@@ -5,6 +5,10 @@
  */
 package Packages_Hung;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author hunglv
@@ -20,6 +24,7 @@ public class Frame_Thong_Ke_Thoi_Gian extends javax.swing.JFrame {
     Frame_Thong_Ke_Theo_Nam thong_Ke_Theo_Nam;
     public Frame_Thong_Ke_Thoi_Gian(Frame_Chon_Thong_Ke chon_Thong_Ke) {
         initComponents();
+        setLocationRelativeTo(null);
         this.chon_Thong_Ke = chon_Thong_Ke;
     }
 
@@ -113,19 +118,33 @@ public class Frame_Thong_Ke_Thoi_Gian extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Statistic follow days
-        thong_Ke_Theo_Ngay = new Frame_Thong_Ke_Theo_Ngay(this, " ", 0);
-        thong_Ke_Theo_Ngay.setVisible(true);
-        this.setVisible(false);
+        try {
+            // Statistic follow days
+            thong_Ke_Theo_Ngay = new Frame_Thong_Ke_Theo_Ngay(this, " ", 0);
+            thong_Ke_Theo_Ngay.setVisible(true);
+            this.setVisible(false);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Frame_Thong_Ke_Thoi_Gian.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame_Thong_Ke_Thoi_Gian.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Statistic follow months
         String time_year = " ";
-        thong_Ke_Theo_Thang = new Frame_Thong_Ke_Theo_Thang(this, time_year, 0); 
-        thong_Ke_Theo_Thang.setVisible(true);
-        this.setVisible(false);
+        try { 
+            thong_Ke_Theo_Thang = new Frame_Thong_Ke_Theo_Thang(this, time_year, 0);
+            thong_Ke_Theo_Thang.setVisible(true);
+             this.setVisible(false);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Frame_Thong_Ke_Thoi_Gian.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame_Thong_Ke_Thoi_Gian.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -135,10 +154,17 @@ public class Frame_Thong_Ke_Thoi_Gian extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Statistic follow years
-        thong_Ke_Theo_Nam = new Frame_Thong_Ke_Theo_Nam(this);
-        thong_Ke_Theo_Nam.setVisible(true);
-        this.setVisible(false);
+        try {
+            // Statistic follow years
+            thong_Ke_Theo_Nam = new Frame_Thong_Ke_Theo_Nam(this);
+            thong_Ke_Theo_Nam.setVisible(true);
+            this.setVisible(false);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Frame_Thong_Ke_Thoi_Gian.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame_Thong_Ke_Thoi_Gian.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

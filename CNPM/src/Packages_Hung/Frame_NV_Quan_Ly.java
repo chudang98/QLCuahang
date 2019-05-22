@@ -21,6 +21,7 @@ public class Frame_NV_Quan_Ly extends javax.swing.JFrame {
     public Frame_NV_Quan_Ly(MainLogin mainLogin) {
         initComponents();
         this.mainLogin = mainLogin;
+        setLocationRelativeTo(null);
     }
 
     private Frame_NV_Quan_Ly() {

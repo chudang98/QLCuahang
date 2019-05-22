@@ -5,7 +5,10 @@
  */
 package Packages_Hung;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,8 +25,9 @@ public class Frame_Xem_Chi_Tiet extends javax.swing.JFrame {
     DefaultTableModel model;
     int frame_static = 0;
     public Frame_Xem_Chi_Tiet(Frame_Thong_Ke_Thoi_Gian thong_Ke_Thoi_Gian, String time_day, 
-                               int frame_static) {
+                               int frame_static) throws ClassNotFoundException, SQLException {
         initComponents();
+        setLocationRelativeTo(null);
         this.time_day = time_day;
         this.thong_Ke_Thoi_Gian = thong_Ke_Thoi_Gian;
         model = (DefaultTableModel) jTable1.getModel();
@@ -35,7 +39,7 @@ public class Frame_Xem_Chi_Tiet extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    private void push_data_on_table() {
+    private void push_data_on_table() throws ClassNotFoundException, SQLException {
         DAO_Hoa_Don_Ban_Hang dao = new DAO_Hoa_Don_Ban_Hang();
         ArrayList<String> list_detail = dao.getDetail(time_day);
         int num_row = model.getRowCount();
@@ -148,7 +152,13 @@ public class Frame_Xem_Chi_Tiet extends javax.swing.JFrame {
         String[] time_date = time_day.split("/");
         String time_month = time_date[1]+"/"+time_date[2];
         this.setVisible(false);
-        new Frame_Thong_Ke_Theo_Ngay(thong_Ke_Thoi_Gian, time_month, frame_static).setVisible(true);
+        try {
+            new Frame_Thong_Ke_Theo_Ngay(thong_Ke_Thoi_Gian, time_month, frame_static).setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Frame_Xem_Chi_Tiet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame_Xem_Chi_Tiet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

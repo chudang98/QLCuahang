@@ -5,6 +5,8 @@
  */
 package Packages_Hung;
 
+import Packages_Mien.ThongKeSPFrame;
+
 /**
  *
  * @author hunglv
@@ -16,6 +18,7 @@ public class Frame_Chon_Thong_Ke extends javax.swing.JFrame {
     Frame_Thong_Ke_Thoi_Gian thong_Ke_Thoi_Gian;
     public Frame_Chon_Thong_Ke(Frame_NV_Quan_Ly quan_Ly) {
         initComponents();
+        setLocationRelativeTo(null);
         this.quan_Ly = quan_Ly;
     }
 
@@ -50,6 +53,11 @@ public class Frame_Chon_Thong_Ke extends javax.swing.JFrame {
         });
 
         jButton2.setText("Thông kê mặt hàng theo doanh thu");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Thống kê khách hàng theo doanh thu");
 
@@ -112,6 +120,12 @@ public class Frame_Chon_Thong_Ke extends javax.swing.JFrame {
         thong_Ke_Thoi_Gian.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        ThongKeSPFrame frm = new ThongKeSPFrame();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

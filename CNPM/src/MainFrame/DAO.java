@@ -30,6 +30,5 @@ public class DAO {
         String url = "jdbc:mysql://" + $host + ":" + $PORT  + "/" + $DBName + "?useUnicode=true&characterEncoding=utf-8";
         con = DriverManager.getConnection(url, $user, $pass);
         con.setAutoCommit(true);   
-
     }
 }

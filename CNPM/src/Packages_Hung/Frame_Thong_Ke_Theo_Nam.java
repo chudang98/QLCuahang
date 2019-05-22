@@ -9,7 +9,10 @@ import Control.Hoa_Don_Ban_Hang;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -29,8 +32,9 @@ public class Frame_Thong_Ke_Theo_Nam extends javax.swing.JFrame {
     Frame_Thong_Ke_Thoi_Gian thong_Ke_Thoi_Gian;
     Frame_Thong_Ke_Theo_Thang thong_Ke_Theo_Thang;
     DefaultTableModel model;
-    public Frame_Thong_Ke_Theo_Nam(Frame_Thong_Ke_Thoi_Gian thong_Ke_Thoi_Gian) {
+    public Frame_Thong_Ke_Theo_Nam(Frame_Thong_Ke_Thoi_Gian thong_Ke_Thoi_Gian) throws ClassNotFoundException, SQLException {
         initComponents();
+        setLocationRelativeTo(null);
         this.thong_Ke_Thoi_Gian = thong_Ke_Thoi_Gian;
         model = (DefaultTableModel) jTable1.getModel();
         push_data_on_table();
@@ -40,7 +44,7 @@ public class Frame_Thong_Ke_Theo_Nam extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public void push_data_on_table() {
+    public void push_data_on_table() throws ClassNotFoundException, SQLException {
         DAO_Hoa_Don_Ban_Hang daohdbh = new DAO_Hoa_Don_Ban_Hang();
         int num_row = model.getRowCount();
         int tong_doanh_thu = 0;
@@ -105,35 +109,31 @@ public class Frame_Thong_Ke_Theo_Nam extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(104, 104, 104)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 198, Short.MAX_VALUE)))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(264, 264, 264)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(212, 212, 212)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(104, 104, 104)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(264, 264, 264)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -233,7 +233,13 @@ public class Frame_Thong_Ke_Theo_Nam extends javax.swing.JFrame {
                 int column = 1;
                 String time_year = String.valueOf(jTable1.getValueAt(row, column));
                 setVisible(false);
-                thong_Ke_Theo_Thang = new Frame_Thong_Ke_Theo_Thang(thong_Ke_Thoi_Gian, time_year, 1);
+                try {
+                    thong_Ke_Theo_Thang = new Frame_Thong_Ke_Theo_Thang(thong_Ke_Thoi_Gian, time_year, 1);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Frame_Thong_Ke_Theo_Nam.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Frame_Thong_Ke_Theo_Nam.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 System.out.println("time_year: "+ time_year);
                 thong_Ke_Theo_Thang.setVisible(true);
             }

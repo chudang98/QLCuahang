@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class SanphamDAO extends DAO{
     
     private static Statement state;
-    private static Cua_Hang shop;
+    public static Cua_Hang shop;
     
     public SanphamDAO() throws ClassNotFoundException, SQLException{
         super();
@@ -109,18 +109,23 @@ public class SanphamDAO extends DAO{
     
     public static San_Pham getSp(String masp) throws SQLException{
         String sql = "SELECT * FROM San_Pham WHERE ma_san_pham = '" + masp + "'";
-        System.out.println(sql);
         ResultSet rs = executeSelect(sql);
         rs.next();
-        
-        
         San_Pham sp = new San_Pham(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(6), rs.getInt(7), rs.getString(4), rs.getString(5), shop);
         return sp;
     }
     
-    public static String sinhMasp(String masp){
-        return null;
-        
+    public static String sinhMasp(String masp) throws SQLException{
+        String sql = "SELECT MAX(ma_mat_hang) FROM mat_hang_nhap WHERE ma_san_pham = '" + masp +"'";
+        ResultSet rs = executeSelect(sql);
+        rs.next();
+        String ma = rs.getString(1);
+        int x = Integer.valueOf(ma.substring(5));
+        x++;
+        if(x >= 10)
+            return ma.substring(0, 5) + x;
+        else
+            return ma.substring(0, 5) + "0" + x;            
     }
     
     public static void addSP(San_Pham t) throws SQLException{
@@ -137,4 +142,6 @@ public class SanphamDAO extends DAO{
         prestate.setString(8, t.getTen_cua_hang().getTen_cua_hang());
         prestate.executeUpdate();
     }
+    
+    
 }

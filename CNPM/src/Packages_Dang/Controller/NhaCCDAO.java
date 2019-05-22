@@ -79,17 +79,24 @@ public class NhaCCDAO extends DAO{
             throw e;
         }
     }
-    public static boolean deleteNCC(Nha_Cung_Cap ncc) throws SQLException{
-        String CMND = ncc.getCmnd();
-        try{
-            String SQL = "DELETE FROM " + $table + "WHERE cmnd =" + CMND;
-            state.executeUpdate(SQL);
-            
-            return true;
-        }catch(Exception e){
-            throw e;
+    
+    public static ArrayList<String> getAllIDNCC() throws SQLException{
+        String sql = "SELECT nha_cung_cap.cmnd FROM nha_cung_cap";
+        ResultSet rs = executeSelect(sql);
+        ArrayList<String> list = new ArrayList<String>();
+        while(rs.next()){
+            list.add(rs.getString(1));
         }
-        
+        return list;
+    }
+    public static ArrayList<String> getAllIDNV() throws SQLException{
+        String sql = "SELECT nhan_vien.cmnd from nhan_vien";
+        ResultSet rs = executeSelect(sql);
+        ArrayList<String> list = new ArrayList<String>();
+        while(rs.next()){
+            list.add(rs.getString(1));
+        }
+        return list;
     }
     
     

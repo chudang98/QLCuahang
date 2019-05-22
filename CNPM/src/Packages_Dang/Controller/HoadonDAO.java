@@ -5,7 +5,9 @@
  */
 package Packages_Dang.Controller;
 
+import Control.Hoa_Don_Nhap_Hang;
 import Control_DAO.DAO;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -69,5 +71,46 @@ public class HoadonDAO extends DAO{
         rs.next();
         String[] kq = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)};
         return kq;
+    }
+    
+    public static String nextID() throws SQLException{
+        String sql = "SELECT MAX(ma_hd_nhap) FROM hoa_don_nhap_hang";
+        ResultSet rs = executeSelect(sql);
+        rs.next();
+        String kq = rs.getString(1);
+        
+        int x = Integer.valueOf(kq.substring(3));
+        x++;
+        if(x < 10){
+            String result = "HDN00" + x;
+            return result;
+        }
+        if(x < 100){
+            String result = "HDN0" + x;
+            return result;
+        }
+        String result = "HDN" + x;
+        return result;
+    }
+    
+    public static void addHoadon(String maHD, String date, String note, String nv, String ncc) throws SQLException{
+        String sql = "INSERT INTO hoa_don_nhap_hang(ma_hd_nhap, thoi_gian, ghi_chu, cmnd_nv_kho, ncc_cmnd) VALUES (?,?,?,?,?)";
+        PreparedStatement prestate = con.prepareStatement(sql);
+        prestate.setString(1, maHD);
+        prestate.setString(2, date);
+        prestate.setString(3, note);
+        prestate.setString(4, nv);
+        prestate.setString(5, ncc);
+        prestate.executeUpdate();
+    }
+    
+    public static void addMathang(String maHD, String maSP, String maMH) throws SQLException{
+        String sql = "INSERT INTO mat_hang_nhap(ma_mat_hang, ma_san_pham, hd_nhap) VALUES (?,?,?)";
+        PreparedStatement prestate = con.prepareStatement(sql);
+        prestate.setString(1, maMH);
+        prestate.setString(2, maSP);
+        prestate.setString(3, maHD);
+        prestate.executeUpdate();
+
     }
 }

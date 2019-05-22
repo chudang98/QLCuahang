@@ -7,13 +7,20 @@ package MainFrame;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author HuyKa
  */
 public class DAO_CHECK_INFO extends DAO{
+    
+    public DAO_CHECK_INFO() throws ClassNotFoundException, SQLException{
+        super();
+    }
+    
     public String get_vi_tri(String tai_khoan, String mat_khau) {
+        System.out.println("duck");
         String vi_tri = "";
         String sql = "SELECT * FROM nhan_vien";
         try {

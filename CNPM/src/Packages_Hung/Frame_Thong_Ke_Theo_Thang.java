@@ -8,7 +8,10 @@ package Packages_Hung;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -37,8 +40,9 @@ public class Frame_Thong_Ke_Theo_Thang extends javax.swing.JFrame{
     int frame_static = 0;
     String time_year;
     public Frame_Thong_Ke_Theo_Thang(Frame_Thong_Ke_Thoi_Gian thong_Ke_Thoi_Gian, String time_year, 
-                                    int frame_static) {
+                                    int frame_static) throws ClassNotFoundException, SQLException {
         initComponents();
+        setLocationRelativeTo(null);
         this.thong_Ke_Thoi_Gian = thong_Ke_Thoi_Gian;
         model = (DefaultTableModel) jTable1.getModel();
         this.time_year = time_year;
@@ -50,7 +54,7 @@ public class Frame_Thong_Ke_Theo_Thang extends javax.swing.JFrame{
         throw new UnsupportedOperationException("Not supported yet."); 
     }
     
-    private void push_data_in_table() {
+    private void push_data_in_table() throws ClassNotFoundException, SQLException {
         String txt = time_year;
         if (txt == " ") txt = "2019";
         ArrayList<Integer> list_thang = new ArrayList<>();
@@ -168,9 +172,15 @@ public class Frame_Thong_Ke_Theo_Thang extends javax.swing.JFrame{
         if (frame_static == 0) {
             thong_Ke_Thoi_Gian.setVisible(true);
         }else {
-            new Frame_Thong_Ke_Theo_Nam(thong_Ke_Thoi_Gian).setVisible(true);
+            try {
+                new Frame_Thong_Ke_Theo_Nam(thong_Ke_Thoi_Gian).setVisible(true);
+                this.setVisible(false);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Frame_Thong_Ke_Theo_Thang.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Frame_Thong_Ke_Theo_Thang.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
@@ -267,11 +277,23 @@ public class Frame_Thong_Ke_Theo_Thang extends javax.swing.JFrame{
                 String date_month = String.valueOf(jTable1.getValueAt(row, column));
                 System.out.println(date_month);
                 setVisible(false);
-                hien_Thi_Theo_Ngay = new Frame_Thong_Ke_Theo_Ngay(thong_Ke_Thoi_Gian, date_month, frame_static);
-                hien_Thi_Theo_Ngay.setVisible(true);
+                try {
+                    hien_Thi_Theo_Ngay = new Frame_Thong_Ke_Theo_Ngay(thong_Ke_Thoi_Gian, date_month, frame_static);
+                    hien_Thi_Theo_Ngay.setVisible(true);
+                    clicked = false;
+                    return new String(lbl);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Frame_Thong_Ke_Theo_Thang.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Frame_Thong_Ke_Theo_Thang.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
-            clicked = false;
-            return new String(lbl);
+            
+            
+            
+            return null;
+            
         }
 
         @Override

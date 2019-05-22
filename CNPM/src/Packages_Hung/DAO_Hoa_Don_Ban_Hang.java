@@ -10,6 +10,7 @@ import Control.Khach_Hang;
 import Control.Nhan_Vien;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,7 +21,8 @@ import java.util.HashMap;
  */
 public class DAO_Hoa_Don_Ban_Hang extends DAO{
 
-    public DAO_Hoa_Don_Ban_Hang() {
+    public DAO_Hoa_Don_Ban_Hang() throws ClassNotFoundException, SQLException {
+        super();
     }
     
     public int get_tong_tien_from_year(String date_year) {

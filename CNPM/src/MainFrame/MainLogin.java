@@ -5,8 +5,14 @@
  */
 package MainFrame;
 
+import Packages_Cuc.sellerHome;
+import Packages_Cuc.sellerView;
+import Packages_Dang.View.HomeFrm;
 import Packages_Hung.Frame_NV_Quan_Ly;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,9 +26,10 @@ public class MainLogin extends javax.swing.JFrame {
     Frame_NV_Quan_Ly nV_Quan_Ly;
     
     
-    public MainLogin() {
+    public MainLogin() throws ClassNotFoundException, SQLException {
+        new DAO();
         initComponents();
-        
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -34,11 +41,15 @@ public class MainLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        label1 = new java.awt.Label();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
+
+        label1.setText("label1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +57,7 @@ public class MainLogin extends javax.swing.JFrame {
 
         jLabel2.setText("Mật Khẩu");
 
+        jTextField1.setText("dang");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -58,6 +70,8 @@ public class MainLogin extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jPasswordField1.setText("123456");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,7 +97,7 @@ public class MainLogin extends javax.swing.JFrame {
                 .addGap(83, 83, 83)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -103,21 +117,39 @@ public class MainLogin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String tai_khoan = jTextField1.getText();
         String mat_khau = jPasswordField1.getText();
-        DAO_CHECK_INFO dao_check_info = new DAO_CHECK_INFO();
-        String vitri = dao_check_info.get_vi_tri(tai_khoan, mat_khau);
-//        System.out.println(vitri);
-        if (vitri.compareTo("NVK") == 0) {
-          // JFrame NVK  
+        DAO_CHECK_INFO dao_check_info;
+        int kt = 0;
+        try {
+            dao_check_info = new DAO_CHECK_INFO();
+
+            String vitri = dao_check_info.get_vi_tri(tai_khoan, mat_khau);
+    //        System.out.println(vitri);
+            if (vitri.compareTo("NVK") == 0) {
+              // JFrame NVK  
+                HomeFrm home = new HomeFrm(this);
+                this.setVisible(false);
+                kt = 1;
+            }
+            if (vitri.compareTo("NVBH") == 0) {
+               // JFrame NVBH
+                sellerView nvbh = new sellerView(this);
+                this.setVisible(false);
+               kt = 1;
+            }
+            if (vitri.compareTo("NVQL") == 0) {
+                // JFrame NVQL
+                nV_Quan_Ly = new Frame_NV_Quan_Ly(this);
+                this.setVisible(false);
+                nV_Quan_Ly.setVisible(true);
+                kt = 1;
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (vitri.compareTo("NVBH") == 0) {
-           // JFrame NVBH
-        }
-        if (vitri.compareTo("NVQL") == 0) {
-            // JFrame NVQL
-            nV_Quan_Ly = new Frame_NV_Quan_Ly(this);
-            this.setVisible(false);
-            nV_Quan_Ly.setVisible(true);
-        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public String get_name_login() {
@@ -154,16 +186,24 @@ public class MainLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainLogin().setVisible(true);
+                try {
+                    new MainLogin().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(MainLogin.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
+    private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }
